@@ -1,13 +1,13 @@
 package main
 
 import (
-	"github.com/drborges/gofn/collections"
+	"github.com/drborges/gofn/fn"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestGenericIterator(t *testing.T) {
-	iterator := collections.NewGenericIterable("a", "b", "c")
+	iterator := fn.NewGenericIterable("a", "b", "c")
 
 	assert.Equal(t, iterator.Next(), "a")
 	assert.Equal(t, iterator.Next(), "b")
@@ -16,7 +16,7 @@ func TestGenericIterator(t *testing.T) {
 }
 
 func TestGenericIteratorWithDifferentInterfaceTypes(t *testing.T) {
-	iterator := collections.NewGenericIterable("a", 1, true)
+	iterator := fn.NewGenericIterable("a", 1, true)
 
 	assert.Equal(t, iterator.Next(), "a")
 	assert.Equal(t, iterator.Next(), 1)
@@ -25,7 +25,7 @@ func TestGenericIteratorWithDifferentInterfaceTypes(t *testing.T) {
 }
 
 func TestGenericIteratorReset(t *testing.T) {
-	iterator := collections.NewGenericIterable("a", 1, true)
+	iterator := fn.NewGenericIterable("a", 1, true)
 
 	assert.Equal(t, iterator.Next(), "a")
 	assert.Equal(t, iterator.Next(), 1)
@@ -36,13 +36,13 @@ func TestGenericIteratorReset(t *testing.T) {
 }
 
 func TestGenericIteratorLength(t *testing.T) {
-	iterator := collections.NewGenericIterable(1, 2)
+	iterator := fn.NewGenericIterable(1, 2)
 
 	assert.Equal(t, iterator.Length(), 2)
 }
 
 func TestGenericIteratorToArray(t *testing.T) {
-	iterator := collections.NewGenericIterable(1, 2, 3)
+	iterator := fn.NewGenericIterable(1, 2, 3)
 
-	assert.Equal(t, iterator.AsArray(), []collections.Any{1, 2, 3})
+	assert.Equal(t, iterator.AsArray(), []fn.Any{1, 2, 3})
 }

@@ -1,4 +1,4 @@
-package collections
+package fn
 
 type GenericSeq struct {
 	Iterable

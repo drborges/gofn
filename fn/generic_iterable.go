@@ -1,8 +1,10 @@
-package collections
+package fn
+
+type Cursor int
 
 type GenericIterable struct {
 	items  []Any
-	cursor int
+	cursor Cursor
 }
 
 func NewGenericIterable(items ...Any) Iterable {
@@ -10,7 +12,8 @@ func NewGenericIterable(items ...Any) Iterable {
 }
 
 func (this *GenericIterable) HasNext() bool {
-	return this.cursor < len(this.items)-1
+	maxCursorPosition := Cursor(len(this.items) - 1)
+	return this.cursor < maxCursorPosition
 }
 
 func (this *GenericIterable) Next() Any {
@@ -30,9 +33,5 @@ func (this *GenericIterable) Reset() {
 }
 
 func (this *GenericIterable) AsArray() []Any {
-	var array []Any
-	for this.HasNext() {
-		array = append(array, this.Next())
-	}
-	return array
+	return this.items
 }

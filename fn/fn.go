@@ -1,4 +1,4 @@
-package collections
+package fn
 
 type Any interface{}
 type Mapper func(Any) Any
@@ -7,7 +7,6 @@ type Reducer func(Any, Any) Any
 
 type Iterable interface {
 	Next() Any
-
 	HasNext() bool
 	Length() int
 	Reset()
