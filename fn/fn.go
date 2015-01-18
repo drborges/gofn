@@ -17,6 +17,7 @@ type Seq interface {
 	Iterable
 	Map(Mapper) Seq
 	ForEach(func(Any))
+	Find(Predicate) Any
 	FindAll(Predicate) Seq
 	Reduce(Any) func(Reducer) Any
 	//	Flatten() Seq

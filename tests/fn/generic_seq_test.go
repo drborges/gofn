@@ -57,6 +57,31 @@ func TestGenericSeqMapResetsIterator(t *testing.T) {
 	assert.Equal(t, []fn.Any{3, 4, 5}, anotherSeq.AsArray())
 }
 
+func TestGenericSeqFind(t *testing.T) {
+	seq := fn.NewGenericSeq(1, 2, 3, 4)
+
+	firstEven := func(item fn.Any) bool {
+		return item.(int)%2 == 0
+	}
+
+	assert.Equal(t, 2, seq.Find(firstEven))
+}
+
+func TestGenericSeqFindResetsIterator(t *testing.T) {
+	seq := fn.NewGenericSeq(1, 2, 3, 4)
+
+	firstEven := func(item fn.Any) bool {
+		return item.(int)%2 == 0
+	}
+
+	firstOdd := func(item fn.Any) bool {
+		return item.(int)%2 != 0
+	}
+
+	assert.Equal(t, 2, seq.Find(firstEven))
+	assert.Equal(t, 3, seq.Find(firstOdd))
+}
+
 func TestGenericSeqFindAll(t *testing.T) {
 	seq := fn.NewGenericSeq(1, 2, 3, 4)
 

@@ -18,36 +18,43 @@ func (this *GenericSeq) ForEach(f func(Any)) {
 
 func (this *GenericSeq) Map(m Mapper) Seq {
 	var seq []Any
+	this.ForEach(func(item Any) {
+		seq = append(seq, m(item))
+	})
+
+	return NewGenericSeq(seq...)
+}
+
+func (this *GenericSeq) Find(p Predicate) Any {
 	for this.HasNext() {
-		seq = append(seq, m(this.Next()))
+		item := this.Next()
+		if p(item) {
+			return item
+		}
 	}
 
 	this.Reset()
-	return NewGenericSeq(seq...)
+	return nil
 }
 
 func (this *GenericSeq) FindAll(p Predicate) Seq {
 	var matched []Any
 
-	for this.HasNext() {
-		item := this.Next()
+	this.ForEach(func(item Any) {
 		if p(item) {
 			matched = append(matched, item)
 		}
-	}
-
-	this.Reset()
+	})
 
 	return NewGenericSeq(matched...)
 }
 
 func (this *GenericSeq) Reduce(accumulator Any) func(Reducer) Any {
 	return func(r Reducer) Any {
-		for this.HasNext() {
-			accumulator = r(accumulator, this.Next())
-		}
+		this.ForEach(func(item Any) {
+			accumulator = r(accumulator, item)
+		})
 
-		this.Reset()
 		return accumulator
 	}
 }
