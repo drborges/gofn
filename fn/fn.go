@@ -20,5 +20,5 @@ type Seq interface {
 	Find(Predicate) Any
 	Filter(Predicate) Seq
 	Reduce(Any) func(Reducer) Any
-	//	Flatten() Seq
+	Flatten() Seq
 }

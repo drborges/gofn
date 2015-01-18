@@ -130,3 +130,9 @@ func TestListReduceResetsIterator(t *testing.T) {
 
 	assert.Equal(t, 12, total1.(int)+total2.(int))
 }
+
+func TestListFlatten(t *testing.T) {
+	list := fn.NewList([]fn.Any{1, 2}, 3)
+
+	assert.Equal(t, []fn.Any{1, 2, 3}, list.Flatten().AsArray())
+}

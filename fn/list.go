@@ -58,3 +58,17 @@ func (this *List) Reduce(accumulator Any) func(Reducer) Any {
 		return accumulator
 	}
 }
+
+func (this *List) Flatten() Seq {
+	flattened := this.Reduce([]Any{})(func(acc Any, next Any) Any {
+		switch next.(type) {
+		case []Any:
+			acc = append(acc.([]Any), next.([]Any)...)
+		default:
+			acc = append(acc.([]Any), next)
+		}
+		return acc
+	})
+
+	return NewList(flattened.([]Any)...)
+}
