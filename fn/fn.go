@@ -9,12 +9,14 @@ type Iterable interface {
 	Next() Any
 	HasNext() bool
 	Length() int
-	Reset()
+	Reset() // FIXME An Iterable should not expose this method
 	AsArray() []Any
 }
 
 type Seq interface {
 	Iterable
+	Append(Any) Seq
+	//	AppendAll(Seq) Seq
 	Map(Mapper) Seq
 	ForEach(func(Any))
 	Find(Predicate) Any

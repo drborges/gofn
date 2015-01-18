@@ -136,3 +136,9 @@ func TestListFlatten(t *testing.T) {
 
 	assert.Equal(t, []fn.Any{1, 2, 3}, list.Flatten().AsArray())
 }
+
+func TestListAppend(t *testing.T) {
+	list := fn.NewList(1, 2)
+
+	assert.Equal(t, []fn.Any{1, 2, 3}, list.Append(3).AsArray())
+}

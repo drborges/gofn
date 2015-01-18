@@ -72,3 +72,9 @@ func (this *List) Flatten() Seq {
 
 	return NewList(flattened.([]Any)...)
 }
+
+func (this *List) Append(item Any) Seq {
+	items := this.AsArray()
+	items = append(items, item)
+	return NewList(items...)
+}
