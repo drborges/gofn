@@ -1,43 +1,37 @@
 package fn
 
-type List struct {
-	Iterable
+type List []Any
+
+func NewList(items ...Any) List {
+	return List(items)
 }
 
-func NewList(args ...Any) Seq {
-	return &List{NewIterator(args...)}
-}
-
-func (this *List) ForEach(f func(Any)) {
-	for this.HasNext() {
-		f(this.Next())
+func (this List) ForEach(f func(Any)) {
+	for _, item := range this {
+		f(item)
 	}
-
-	this.Reset()
 }
 
-func (this *List) Map(m Mapper) Seq {
-	var seq []Any
+func (this List) Map(m Mapper) List {
+	var list []Any
 	this.ForEach(func(item Any) {
-		seq = append(seq, m(item))
+		list = append(list, m(item))
 	})
 
-	return NewList(seq...)
+	return List(list)
 }
 
-func (this *List) Find(p Predicate) Any {
-	for this.HasNext() {
-		item := this.Next()
+func (this List) Find(p Predicate) Any {
+	for _, item := range this {
 		if p(item) {
 			return item
 		}
 	}
 
-	this.Reset()
 	return nil
 }
 
-func (this *List) Filter(p Predicate) Seq {
+func (this List) Filter(p Predicate) List {
 	var matched []Any
 
 	this.ForEach(func(item Any) {
@@ -46,10 +40,10 @@ func (this *List) Filter(p Predicate) Seq {
 		}
 	})
 
-	return NewList(matched...)
+	return matched
 }
 
-func (this *List) Reduce(accumulator Any) func(Reducer) Any {
+func (this List) Reduce(accumulator Any) func(Reducer) Any {
 	return func(r Reducer) Any {
 		this.ForEach(func(item Any) {
 			accumulator = r(accumulator, item)
@@ -59,22 +53,21 @@ func (this *List) Reduce(accumulator Any) func(Reducer) Any {
 	}
 }
 
-func (this *List) Flatten() Seq {
-	flattened := this.Reduce([]Any{})(func(acc Any, next Any) Any {
+func (this List) Flatten() List {
+	return this.Reduce(List{})(func(acc Any, next Any) Any {
 		switch next.(type) {
 		case []Any:
-			acc = append(acc.([]Any), next.([]Any)...)
+			acc = append(acc.(List), next.([]Any)...)
+		case List:
+			acc = append(acc.(List), next.(List)...)
 		default:
-			acc = append(acc.([]Any), next)
+			acc = append(acc.(List), next)
 		}
 		return acc
-	})
-
-	return NewList(flattened.([]Any)...)
+	}).(List)
 }
 
-func (this *List) Append(item Any) Seq {
-	items := this.AsArray()
-	items = append(items, item)
-	return NewList(items...)
+func (this List) Append(item Any) List {
+	this = append(this, item)
+	return this
 }

@@ -14,7 +14,6 @@ type Iterable interface {
 }
 
 type Seq interface {
-	Iterable
 	Append(Any) Seq
 	//	AppendAll(Seq) Seq
 	Map(Mapper) Seq
