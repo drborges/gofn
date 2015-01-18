@@ -89,9 +89,7 @@ func TestGenericSeqFindAll(t *testing.T) {
 		return item.(int)%2 == 0
 	}
 
-	result := seq.FindAll(evenNumbers)
-
-	assert.Equal(t, []fn.Any{2, 4}, result.AsArray())
+	assert.Equal(t, []fn.Any{2, 4}, seq.FindAll(evenNumbers).AsArray())
 }
 
 func TestGenericSeqFindAllResetsIterator(t *testing.T) {
@@ -105,11 +103,8 @@ func TestGenericSeqFindAllResetsIterator(t *testing.T) {
 		return item.(int)%2 != 0
 	}
 
-	evenNumbers := seq.FindAll(even)
-	oddNumbers := seq.FindAll(odd)
-
-	assert.Equal(t, []fn.Any{2, 4}, evenNumbers.AsArray())
-	assert.Equal(t, []fn.Any{1, 3}, oddNumbers.AsArray())
+	assert.Equal(t, []fn.Any{2, 4}, seq.FindAll(even).AsArray())
+	assert.Equal(t, []fn.Any{1, 3}, seq.FindAll(odd).AsArray())
 }
 
 func TestGenericSeqReduce(t *testing.T) {
