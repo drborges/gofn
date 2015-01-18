@@ -18,6 +18,6 @@ type Seq interface {
 	Map(Mapper) Seq
 	ForEach(func(Any))
 	FindAll(Predicate) Seq
-	//	Reduce(Reducer, interface{}) interface{}
+	Reduce(Any) func(Reducer) Any
 	//	Flatten() Seq
 }

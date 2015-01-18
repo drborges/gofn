@@ -40,3 +40,14 @@ func (this *GenericSeq) FindAll(p Predicate) Seq {
 
 	return NewGenericSeq(matched...)
 }
+
+func (this *GenericSeq) Reduce(accumulator Any) func(Reducer) Any {
+	return func(r Reducer) Any {
+		for this.HasNext() {
+			accumulator = r(accumulator, this.Next())
+		}
+
+		this.Reset()
+		return accumulator
+	}
+}

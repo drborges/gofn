@@ -14,7 +14,7 @@ func TestGenericSeqForEach(t *testing.T) {
 		items = append(items, item.(int))
 	})
 
-	assert.Equal(t, items, []int{1, 2, 3})
+	assert.Equal(t, []int{1, 2, 3}, items)
 }
 
 func TestGenericSeqForEachResetsIterator(t *testing.T) {
@@ -29,7 +29,7 @@ func TestGenericSeqForEachResetsIterator(t *testing.T) {
 		items = append(items, item.(int)+3)
 	})
 
-	assert.Equal(t, items, []int{1, 2, 3, 4, 5, 6})
+	assert.Equal(t, []int{1, 2, 3, 4, 5, 6}, items)
 }
 
 func TestGenericSeqMap(t *testing.T) {
@@ -39,7 +39,7 @@ func TestGenericSeqMap(t *testing.T) {
 		return item.(int) + 1
 	})
 
-	assert.Equal(t, newSeq.AsArray(), []fn.Any{2, 3, 4})
+	assert.Equal(t, []fn.Any{2, 3, 4}, newSeq.AsArray())
 }
 
 func TestGenericSeqMapResetsIterator(t *testing.T) {
@@ -53,8 +53,8 @@ func TestGenericSeqMapResetsIterator(t *testing.T) {
 		return item.(int) + 2
 	})
 
-	assert.Equal(t, newSeq.AsArray(), []fn.Any{2, 3, 4})
-	assert.Equal(t, anotherSeq.AsArray(), []fn.Any{3, 4, 5})
+	assert.Equal(t, []fn.Any{2, 3, 4}, newSeq.AsArray())
+	assert.Equal(t, []fn.Any{3, 4, 5}, anotherSeq.AsArray())
 }
 
 func TestGenericSeqFindAll(t *testing.T) {
@@ -66,7 +66,7 @@ func TestGenericSeqFindAll(t *testing.T) {
 
 	result := seq.FindAll(evenNumbers)
 
-	assert.Equal(t, result.AsArray(), []fn.Any{2, 4})
+	assert.Equal(t, []fn.Any{2, 4}, result.AsArray())
 }
 
 func TestGenericSeqFindAllResetsIterator(t *testing.T) {
@@ -83,6 +83,30 @@ func TestGenericSeqFindAllResetsIterator(t *testing.T) {
 	evenNumbers := seq.FindAll(even)
 	oddNumbers := seq.FindAll(odd)
 
-	assert.Equal(t, evenNumbers.AsArray(), []fn.Any{2, 4})
-	assert.Equal(t, oddNumbers.AsArray(), []fn.Any{1, 3})
+	assert.Equal(t, []fn.Any{2, 4}, evenNumbers.AsArray())
+	assert.Equal(t, []fn.Any{1, 3}, oddNumbers.AsArray())
+}
+
+func TestGenericSeqReduce(t *testing.T) {
+	seq := fn.NewGenericSeq(1, 2, 3)
+
+	total := seq.Reduce(0)(func(sum, next fn.Any) fn.Any {
+		return sum.(int) + next.(int)
+	})
+
+	assert.Equal(t, 6, total)
+}
+
+func TestGenericSeqReduceResetsIterator(t *testing.T) {
+	seq := fn.NewGenericSeq(1, 2, 3)
+
+	total1 := seq.Reduce(0)(func(sum, next fn.Any) fn.Any {
+		return sum.(int) + next.(int)
+	})
+
+	total2 := seq.Reduce(0)(func(sum, next fn.Any) fn.Any {
+		return sum.(int) + next.(int)
+	})
+
+	assert.Equal(t, 12, total1.(int)+total2.(int))
 }
