@@ -1,14 +1,14 @@
 package fn
 
-type GenericSeq struct {
+type List struct {
 	Iterable
 }
 
-func NewGenericSeq(args ...Any) Seq {
-	return &GenericSeq{NewIterator(args...)}
+func NewList(args ...Any) Seq {
+	return &List{NewIterator(args...)}
 }
 
-func (this *GenericSeq) ForEach(f func(Any)) {
+func (this *List) ForEach(f func(Any)) {
 	for this.HasNext() {
 		f(this.Next())
 	}
@@ -16,16 +16,16 @@ func (this *GenericSeq) ForEach(f func(Any)) {
 	this.Reset()
 }
 
-func (this *GenericSeq) Map(m Mapper) Seq {
+func (this *List) Map(m Mapper) Seq {
 	var seq []Any
 	this.ForEach(func(item Any) {
 		seq = append(seq, m(item))
 	})
 
-	return NewGenericSeq(seq...)
+	return NewList(seq...)
 }
 
-func (this *GenericSeq) Find(p Predicate) Any {
+func (this *List) Find(p Predicate) Any {
 	for this.HasNext() {
 		item := this.Next()
 		if p(item) {
@@ -37,7 +37,7 @@ func (this *GenericSeq) Find(p Predicate) Any {
 	return nil
 }
 
-func (this *GenericSeq) Filter(p Predicate) Seq {
+func (this *List) Filter(p Predicate) Seq {
 	var matched []Any
 
 	this.ForEach(func(item Any) {
@@ -46,10 +46,10 @@ func (this *GenericSeq) Filter(p Predicate) Seq {
 		}
 	})
 
-	return NewGenericSeq(matched...)
+	return NewList(matched...)
 }
 
-func (this *GenericSeq) Reduce(accumulator Any) func(Reducer) Any {
+func (this *List) Reduce(accumulator Any) func(Reducer) Any {
 	return func(r Reducer) Any {
 		this.ForEach(func(item Any) {
 			accumulator = r(accumulator, item)
