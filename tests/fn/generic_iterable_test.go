@@ -6,8 +6,8 @@ import (
 	"testing"
 )
 
-func TestGenericIterator(t *testing.T) {
-	iterator := fn.NewGenericIterable("a", "b", "c")
+func TestIterator(t *testing.T) {
+	iterator := fn.NewIterator("a", "b", "c")
 
 	assert.Equal(t, iterator.Next(), "a")
 	assert.Equal(t, iterator.Next(), "b")
@@ -15,8 +15,8 @@ func TestGenericIterator(t *testing.T) {
 	assert.Equal(t, iterator.Next(), nil)
 }
 
-func TestGenericIteratorWithDifferentInterfaceTypes(t *testing.T) {
-	iterator := fn.NewGenericIterable("a", 1, true)
+func TestIteratorWithDifferentInterfaceTypes(t *testing.T) {
+	iterator := fn.NewIterator("a", 1, true)
 
 	assert.Equal(t, iterator.Next(), "a")
 	assert.Equal(t, iterator.Next(), 1)
@@ -24,8 +24,8 @@ func TestGenericIteratorWithDifferentInterfaceTypes(t *testing.T) {
 	assert.Equal(t, iterator.Next(), nil)
 }
 
-func TestGenericIteratorReset(t *testing.T) {
-	iterator := fn.NewGenericIterable("a", 1, true)
+func TestIteratorReset(t *testing.T) {
+	iterator := fn.NewIterator("a", 1, true)
 
 	assert.Equal(t, iterator.Next(), "a")
 	assert.Equal(t, iterator.Next(), 1)
@@ -35,14 +35,14 @@ func TestGenericIteratorReset(t *testing.T) {
 	assert.Equal(t, iterator.Next(), "a")
 }
 
-func TestGenericIteratorLength(t *testing.T) {
-	iterator := fn.NewGenericIterable(1, 2)
+func TestIteratorLength(t *testing.T) {
+	iterator := fn.NewIterator(1, 2)
 
 	assert.Equal(t, iterator.Length(), 2)
 }
 
-func TestGenericIteratorToArray(t *testing.T) {
-	iterator := fn.NewGenericIterable(1, 2, 3)
+func TestIteratorToArray(t *testing.T) {
+	iterator := fn.NewIterator(1, 2, 3)
 
 	assert.Equal(t, iterator.AsArray(), []fn.Any{1, 2, 3})
 }

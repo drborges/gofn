@@ -82,17 +82,17 @@ func TestGenericSeqFindResetsIterator(t *testing.T) {
 	assert.Equal(t, 3, seq.Find(firstOdd))
 }
 
-func TestGenericSeqFindAll(t *testing.T) {
+func TestGenericSeqFilter(t *testing.T) {
 	seq := fn.NewGenericSeq(1, 2, 3, 4)
 
 	evenNumbers := func(item fn.Any) bool {
 		return item.(int)%2 == 0
 	}
 
-	assert.Equal(t, []fn.Any{2, 4}, seq.FindAll(evenNumbers).AsArray())
+	assert.Equal(t, []fn.Any{2, 4}, seq.Filter(evenNumbers).AsArray())
 }
 
-func TestGenericSeqFindAllResetsIterator(t *testing.T) {
+func TestGenericSeqFilterResetsIterator(t *testing.T) {
 	seq := fn.NewGenericSeq(1, 2, 3, 4)
 
 	even := func(item fn.Any) bool {
@@ -103,8 +103,8 @@ func TestGenericSeqFindAllResetsIterator(t *testing.T) {
 		return item.(int)%2 != 0
 	}
 
-	assert.Equal(t, []fn.Any{2, 4}, seq.FindAll(even).AsArray())
-	assert.Equal(t, []fn.Any{1, 3}, seq.FindAll(odd).AsArray())
+	assert.Equal(t, []fn.Any{2, 4}, seq.Filter(even).AsArray())
+	assert.Equal(t, []fn.Any{1, 3}, seq.Filter(odd).AsArray())
 }
 
 func TestGenericSeqReduce(t *testing.T) {

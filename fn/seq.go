@@ -5,7 +5,7 @@ type GenericSeq struct {
 }
 
 func NewGenericSeq(args ...Any) Seq {
-	return &GenericSeq{NewGenericIterable(args...)}
+	return &GenericSeq{NewIterator(args...)}
 }
 
 func (this *GenericSeq) ForEach(f func(Any)) {
@@ -37,7 +37,7 @@ func (this *GenericSeq) Find(p Predicate) Any {
 	return nil
 }
 
-func (this *GenericSeq) FindAll(p Predicate) Seq {
+func (this *GenericSeq) Filter(p Predicate) Seq {
 	var matched []Any
 
 	this.ForEach(func(item Any) {
