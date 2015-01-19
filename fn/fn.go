@@ -1,6 +1,7 @@
 package fn
 
 type Any interface{}
+type None interface{}
 type Mapper func(Any) Any
 type Predicate func(Any) bool
 type Reducer func(Any, Any) Any
@@ -15,7 +16,6 @@ type Iterable interface {
 
 type Seq interface {
 	Append(Any) Seq
-	//	AppendAll(Seq) Seq
 	Map(Mapper) Seq
 	ForEach(func(Any))
 	Find(Predicate) Any

@@ -21,7 +21,7 @@ func (this *Iterator) Next() Any {
 		this.cursor++
 		return this.items[this.cursor]
 	}
-	return nil
+	return None(nil)
 }
 
 func (this *Iterator) Length() int {

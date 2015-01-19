@@ -18,7 +18,7 @@ func (this List) Map(m Mapper) List {
 		list = append(list, m(item))
 	})
 
-	return List(list)
+	return list
 }
 
 func (this List) Find(p Predicate) Any {
@@ -28,7 +28,7 @@ func (this List) Find(p Predicate) Any {
 		}
 	}
 
-	return nil
+	return None(nil)
 }
 
 func (this List) Filter(p Predicate) List {
