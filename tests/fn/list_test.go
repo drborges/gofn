@@ -68,3 +68,15 @@ func TestListAppend(t *testing.T) {
 
 	assert.Equal(t, []fn.Any{1, 2, 3}, list.Append(3))
 }
+
+func TestListHead(t *testing.T) {
+	list := fn.NewList(1, 2, 3)
+
+	assert.Equal(t, 1, list.Head())
+}
+
+func TestListTail(t *testing.T) {
+	list := fn.NewList(1, 2, 3)
+
+	assert.Equal(t, []fn.Any{2, 3}, list.Tail())
+}

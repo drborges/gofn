@@ -15,6 +15,8 @@ type Iterable interface {
 }
 
 type Seq interface {
+	Head() Any
+	Tail() Seq
 	Append(Any) Seq
 	Map(Mapper) Seq
 	ForEach(func(Any))
@@ -23,3 +25,7 @@ type Seq interface {
 	Reduce(Any) func(Reducer) Any
 	Flatten() Seq
 }
+
+//type Tree interface {}
+//type Map map[Any]Any
+//type Set []Any

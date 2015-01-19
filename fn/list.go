@@ -71,3 +71,11 @@ func (this List) Append(item Any) List {
 	this = append(this, item)
 	return this
 }
+
+func (this List) Head() Any {
+	return this[0]
+}
+
+func (this List) Tail() List {
+	return this[1:]
+}
