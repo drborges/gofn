@@ -27,6 +27,7 @@ type Seq interface {
 }
 
 type Node interface {
+	Value() Any
 	Parent() Node
 	Children() List
 }
