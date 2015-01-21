@@ -33,8 +33,7 @@ type Node interface {
 }
 
 type Tree interface {
-	TraverseLeft() Tree
-	TraverseRight() Tree
+	Traverse() Tree
 	Root() Node
 }
 
