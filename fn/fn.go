@@ -9,9 +9,6 @@ type Reducer func(Any, Any) Any
 type Iterable interface {
 	Next() Any
 	HasNext() bool
-	Length() int
-	Reset() // FIXME An Iterable should not expose this method
-	AsArray() []Any
 }
 
 type Seq interface {
