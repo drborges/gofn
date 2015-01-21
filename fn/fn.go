@@ -26,6 +26,16 @@ type Seq interface {
 	Flatten() Seq
 }
 
-//type Tree interface {}
+type Node interface {
+	Parent() Node
+	Children() List
+}
+
+type Tree interface {
+	TraverseLeft() Tree
+	TraverseRight() Tree
+	Root() Node
+}
+
 //type Map map[Any]Any
 //type Set []Any
