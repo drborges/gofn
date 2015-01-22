@@ -14,6 +14,7 @@ type Iterable interface {
 type Seq interface {
 	Head() Any
 	Tail() Seq
+	Iter() Iterable
 	Append(Any) Seq
 	Map(Mapper) Seq
 	ForEach(func(Any))
@@ -30,7 +31,7 @@ type Node interface {
 }
 
 type Tree interface {
-	Traverse() Tree
+	Iterable
 	Root() Node
 }
 

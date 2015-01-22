@@ -79,3 +79,7 @@ func (this List) Head() Any {
 func (this List) Tail() List {
 	return this[1:]
 }
+
+func (this List) Iter() Iterable {
+	return NewIterator(this)
+}

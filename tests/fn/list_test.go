@@ -80,3 +80,12 @@ func TestListTail(t *testing.T) {
 
 	assert.Equal(t, []fn.Any{2, 3}, list.Tail())
 }
+
+func TestListIter(t *testing.T) {
+	it := fn.NewList(1, 2, 3).Iter()
+
+	assert.Equal(t, 1, it.Next())
+	assert.Equal(t, 2, it.Next())
+	assert.Equal(t, 3, it.Next())
+	assert.Equal(t, nil, it.Next())
+}
