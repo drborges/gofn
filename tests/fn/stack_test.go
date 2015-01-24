@@ -20,5 +20,5 @@ func TestStackPop(t *testing.T) {
 	assert.Equal(t, 3, stack.Pop())
 	assert.Equal(t, 2, stack.Pop())
 	assert.Equal(t, 1, stack.Pop())
-	assert.Equal(t, fn.EmptyStack, stack.Pop())
+	assert.Equal(t, fn.None(nil), stack.Pop())
 }

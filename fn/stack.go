@@ -11,7 +11,7 @@ func (s *Stack) Push(item Any) *Stack {
 
 func (s *Stack) Pop() Any {
 	if len(*s) == 0 {
-		return EmptyStack
+		return None(nil)
 	}
 
 	current := *s
