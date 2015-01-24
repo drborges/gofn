@@ -6,14 +6,19 @@ import (
 	"testing"
 )
 
-func TestStack(t *testing.T) {
+func TestStackPush(t *testing.T) {
+	var stack = fn.Stack{}
+
+	stack.Push(1).Push(2)
+
+	assert.Equal(t, fn.Stack{1, 2}, stack)
+}
+
+func TestStackPop(t *testing.T) {
 	var stack = fn.Stack{1, 2, 3}
-	var firstItem, secondItem, thirdItem fn.Any
 
-	stack = stack.Pop(&firstItem).Pop(&secondItem).Pop(&thirdItem)
-
-	assert.Equal(t, []fn.Any{}, stack)
-	assert.Equal(t, 3, firstItem)
-	assert.Equal(t, 2, secondItem)
-	assert.Equal(t, 1, thirdItem)
+	assert.Equal(t, 3, stack.Pop())
+	assert.Equal(t, 2, stack.Pop())
+	assert.Equal(t, 1, stack.Pop())
+	assert.Equal(t, fn.EmptyStack, stack.Pop())
 }

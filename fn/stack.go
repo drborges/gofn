@@ -2,13 +2,21 @@ package fn
 
 type Stack []Any
 
-func (s Stack) Push(item Any) Stack {
-	return Stack(append(s, item))
+var EmptyStack = Stack{}
+
+func (s *Stack) Push(item Any) *Stack {
+	*s = append(*s, item)
+	return s
 }
 
-func (s Stack) Pop(dst *Any) Stack {
-	lastIndex := len(s) - 1
-	*dst = s[lastIndex]
+func (s *Stack) Pop() Any {
+	if len(*s) == 0 {
+		return EmptyStack
+	}
 
-	return s[:lastIndex]
+	current := *s
+	lastIndex := len(current) - 1
+	lastItem := current[lastIndex]
+	*s = current[:lastIndex]
+	return lastItem
 }
