@@ -20,3 +20,7 @@ func (s *Stack) Pop() Any {
 	*s = current[:lastIndex]
 	return lastItem
 }
+
+func (s Stack) Length() int {
+	return len(s)
+}

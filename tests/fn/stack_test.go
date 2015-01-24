@@ -22,3 +22,10 @@ func TestStackPop(t *testing.T) {
 	assert.Equal(t, 1, stack.Pop())
 	assert.Equal(t, fn.None(nil), stack.Pop())
 }
+
+func TestStackLength(t *testing.T) {
+	stack := fn.Stack{1, 2}
+
+	assert.Equal(t, 2, stack.Length())
+	assert.Equal(t, 0, fn.EmptyStack.Length())
+}
