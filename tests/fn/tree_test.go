@@ -40,3 +40,9 @@ func TestDeepBinaryTreeNext(t *testing.T) {
 	assert.Equal(t, 6, tree.Next().(*fn.BinaryTreeNode).Value)
 	assert.Equal(t, 7, tree.Next().(*fn.BinaryTreeNode).Value)
 }
+
+func TestBinaryTreeImplementsIterableInterface(t *testing.T) {
+	tree := fn.NewBinaryTree(fn.NewBinaryTreeNode(1))
+
+	assert.Implements(t, (*fn.Iterable)(nil), tree)
+}
