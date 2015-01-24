@@ -1,14 +1,14 @@
 package fn
 
 type BinaryTreeNode struct {
-	Value  *Any
+	Value  Any
 	LChild *BinaryTreeNode
 	RChild *BinaryTreeNode
 }
 
 var EmptyNode = &BinaryTreeNode{}
 
-func NewBinaryTreeNode(value *Any) *BinaryTreeNode {
+func NewBinaryTreeNode(value Any) *BinaryTreeNode {
 	return &BinaryTreeNode{
 		Value:  value,
 		LChild: EmptyNode,
@@ -16,7 +16,7 @@ func NewBinaryTreeNode(value *Any) *BinaryTreeNode {
 	}
 }
 
-func NewBinaryTreeNodeWithChildren(value *Any, children ...*BinaryTreeNode) *BinaryTreeNode {
+func NewBinaryTreeNodeWithChildren(value Any, children ...*BinaryTreeNode) *BinaryTreeNode {
 	lChild, rChild := EmptyNode, EmptyNode
 	if len(children) == 1 {
 		lChild = children[0]

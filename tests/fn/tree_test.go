@@ -26,3 +26,17 @@ func TestBinaryTreeNext(t *testing.T) {
 	assert.Equal(t, lChild, tree.Next())
 	assert.Equal(t, rChild, tree.Next())
 }
+
+func TestDeepBinaryTreeNext(t *testing.T) {
+	tree := fn.NewBinaryTree(fn.NewBinaryTreeNodeWithChildren(1,
+		fn.NewBinaryTreeNodeWithChildren(2, fn.NewBinaryTreeNode(3), fn.NewBinaryTreeNode(4)),
+		fn.NewBinaryTreeNodeWithChildren(5, fn.NewBinaryTreeNode(6), fn.NewBinaryTreeNode(7))))
+
+	assert.Equal(t, 1, tree.Next().(*fn.BinaryTreeNode).Value)
+	assert.Equal(t, 2, tree.Next().(*fn.BinaryTreeNode).Value)
+	assert.Equal(t, 3, tree.Next().(*fn.BinaryTreeNode).Value)
+	assert.Equal(t, 4, tree.Next().(*fn.BinaryTreeNode).Value)
+	assert.Equal(t, 5, tree.Next().(*fn.BinaryTreeNode).Value)
+	assert.Equal(t, 6, tree.Next().(*fn.BinaryTreeNode).Value)
+	assert.Equal(t, 7, tree.Next().(*fn.BinaryTreeNode).Value)
+}
