@@ -18,6 +18,7 @@ func NewBinaryTreeNode(value Any) *BinaryTreeNode {
 
 func NewBinaryTreeNodeWithChildren(value Any, children ...*BinaryTreeNode) *BinaryTreeNode {
 	lChild, rChild := EmptyNode, EmptyNode
+
 	if len(children) == 1 {
 		lChild = children[0]
 	}
