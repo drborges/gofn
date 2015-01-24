@@ -11,30 +11,12 @@ type Iterable interface {
 	HasNext() bool
 }
 
-type Seq interface {
-	Head() Any
-	Tail() Seq
-	Iter() Iterable
-	Append(Any) Seq
-	Map(Mapper) Seq
+type Traversable interface {
+	Iterable
+	Map(Mapper) Traversable
 	ForEach(func(Any))
 	Find(Predicate) Any
-	Filter(Predicate) Seq
+	Filter(Predicate) Traversable
 	Reduce(Any) func(Reducer) Any
-	Flatten() Seq
+	Flatten() Traversable
 }
-
-type Node interface {
-	Value() Any
-	Parent() Node
-	LeftChild() Node
-	RightChild() Node
-}
-
-type Tree interface {
-	Iterable
-	Root() Node
-}
-
-//type Map map[Any]Any
-//type Set []Any

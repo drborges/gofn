@@ -4,7 +4,7 @@ type Traverser struct {
 	Iterable
 }
 
-func NewTraverser(iterator Iterable) Traverser {
+func NewTraverser(iterator Iterable) Traversable {
 	return Traverser{iterator}
 }
 
@@ -14,7 +14,7 @@ func (this Traverser) ForEach(f func(Any)) {
 	}
 }
 
-func (this Traverser) Map(m Mapper) Traverser {
+func (this Traverser) Map(m Mapper) Traversable {
 	var list []Any
 	this.ForEach(func(item Any) {
 		list = append(list, m(item))
@@ -34,7 +34,7 @@ func (this Traverser) Find(p Predicate) Any {
 	return None(nil)
 }
 
-func (this Traverser) Filter(p Predicate) Traverser {
+func (this Traverser) Filter(p Predicate) Traversable {
 	var matched []Any
 
 	this.ForEach(func(item Any) {
@@ -56,7 +56,7 @@ func (this Traverser) Reduce(accumulator Any) func(Reducer) Any {
 	}
 }
 
-func (this Traverser) Flatten() Traverser {
+func (this Traverser) Flatten() Traversable {
 	flattened := this.Reduce([]Any{})(func(acc Any, next Any) Any {
 		switch next.(type) {
 		case []Any:

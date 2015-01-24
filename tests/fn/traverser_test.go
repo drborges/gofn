@@ -24,7 +24,7 @@ func TestTraverserMap(t *testing.T) {
 		return item.(int) + 1
 	})
 
-	assert.Equal(t, fn.NewIteratorFromItems(2, 3, 4, 5), newTraverser.Iterable)
+	assert.Equal(t, []fn.Any{2, 3, 4, 5}, fn.Iter2Array(newTraverser))
 }
 
 func TestTraverserFind(t *testing.T) {
@@ -44,7 +44,7 @@ func TestTraverserFilter(t *testing.T) {
 		return item.(int)%2 == 0
 	}
 
-	assert.Equal(t, fn.NewIteratorFromItems(2, 4), traverser.Filter(evenNumbers).Iterable)
+	assert.Equal(t, []fn.Any{2, 4}, fn.Iter2Array(traverser.Filter(evenNumbers)))
 }
 
 func TestTraverserReduce(t *testing.T) {
@@ -60,5 +60,5 @@ func TestTraverserReduce(t *testing.T) {
 func TestTraverserFlatten(t *testing.T) {
 	traverser := fn.NewTraverser(fn.NewIteratorFromItems([]fn.Any{1, 2}, 3))
 
-	assert.Equal(t, fn.NewIteratorFromItems(1, 2, 3), traverser.Flatten().Iterable)
+	assert.Equal(t, []fn.Any{1, 2, 3}, fn.Iter2Array(traverser.Flatten()))
 }
