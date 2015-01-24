@@ -39,12 +39,12 @@ type BinaryTree struct {
 	Fringe *Stack
 }
 
-var EmptyBinaryTree = &BinaryTree{}
+var EmptyBinaryTree = &BinaryTree{Fringe: EmptyStack}
 
 func NewBinaryTree(root *BinaryTreeNode) *BinaryTree {
 	return &BinaryTree{
 		Root:   root,
-		Fringe: EmptyStack,
+		Fringe: &Stack{root},
 	}
 }
 
@@ -57,7 +57,7 @@ func (t *BinaryTree) Next() Any {
 		return EmptyNode
 	}
 
-	node := t.Fringe.Pop().(BinaryTreeNode)
+	node := t.Fringe.Pop().(*BinaryTreeNode)
 
 	if node.RChild != EmptyNode {
 		t.Fringe.Push(node.RChild)
