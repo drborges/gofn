@@ -27,7 +27,8 @@ type Seq interface {
 type Node interface {
 	Value() Any
 	Parent() Node
-	Children() List
+	LeftChild() Node
+	RightChild() Node
 }
 
 type Tree interface {
