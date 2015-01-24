@@ -2,7 +2,7 @@ package fn
 
 type Stack []Any
 
-var EmptyStack = Stack{}
+var EmptyStack = &Stack{}
 
 func (s *Stack) Push(item Any) *Stack {
 	*s = append(*s, item)
