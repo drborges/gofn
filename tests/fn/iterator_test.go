@@ -15,7 +15,6 @@ func TestIterator(t *testing.T) {
 	assert.Equal(t, iterator.Next(), "b")
 	assert.Equal(t, iterator.Next(), "c")
 	assert.Equal(t, iterator.Next(), nil)
-	assert.Equal(t, []fn.Any{"a", "b", "c"}, items)
 }
 
 func TestIteratorWithDifferentInterfaceTypes(t *testing.T) {
@@ -27,5 +26,15 @@ func TestIteratorWithDifferentInterfaceTypes(t *testing.T) {
 	assert.Equal(t, iterator.Next(), 1)
 	assert.Equal(t, iterator.Next(), true)
 	assert.Equal(t, iterator.Next(), nil)
-	assert.Equal(t, []fn.Any{"a", 1, true}, items)
+}
+
+func TestIteratorDoesNotDestroyOriginalData(t *testing.T) {
+	items := []fn.Any{"a", "b", "c"}
+
+	iterator := fn.NewIterator(items)
+
+	iterator.Next()
+	iterator.Next()
+
+	assert.Equal(t, []fn.Any{"a", "b", "c"}, items)
 }
