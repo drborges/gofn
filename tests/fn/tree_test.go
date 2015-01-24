@@ -15,16 +15,12 @@ func TestBinaryTreeHasNext(t *testing.T) {
 }
 
 func TestBinaryTreeNext(t *testing.T) {
-	rootValue, lChildValue, rChildValue := fn.Any(1), fn.Any(2), fn.Any(3)
-	lChild := fn.NewBinaryTreeNode(&lChildValue)
-	rChild := fn.NewBinaryTreeNode(&rChildValue)
-	root := fn.NewBinaryTreeNodeWithChildren(&rootValue, lChild, rChild)
+	tree := fn.NewBinaryTree(
+		fn.NewBinaryTreeNodeWithChildren(1, fn.NewBinaryTreeNode(2), fn.NewBinaryTreeNode(3)))
 
-	tree := fn.NewBinaryTree(root)
-
-	assert.Equal(t, root, tree.Next())
-	assert.Equal(t, lChild, tree.Next())
-	assert.Equal(t, rChild, tree.Next())
+	assert.Equal(t, 1, tree.Next().(*fn.BinaryTreeNode).Value)
+	assert.Equal(t, 2, tree.Next().(*fn.BinaryTreeNode).Value)
+	assert.Equal(t, 3, tree.Next().(*fn.BinaryTreeNode).Value)
 }
 
 func TestDeepBinaryTreeNext(t *testing.T) {
@@ -45,4 +41,16 @@ func TestBinaryTreeImplementsIterableInterface(t *testing.T) {
 	tree := fn.NewBinaryTree(fn.NewBinaryTreeNode(1))
 
 	assert.Implements(t, (*fn.Iterable)(nil), tree)
+}
+
+func TestBinaryTreeIsTraversable(t *testing.T) {
+	traversableTree := fn.NewTraverser(fn.NewBinaryTree(fn.NewBinaryTreeNodeWithChildren(1,
+		fn.NewBinaryTreeNode(2),
+		fn.NewBinaryTreeNode(3))))
+
+	sumAll := func(acc fn.Any, next fn.Any) fn.Any {
+		return acc.(int) + next.(*fn.BinaryTreeNode).Value.(int)
+	}
+
+	assert.Equal(t, 6, traversableTree.Reduce(0)(sumAll))
 }
