@@ -1,15 +1,14 @@
-package main
+package fn
 
 import (
-	"github.com/drborges/gofn/fn"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestIterator(t *testing.T) {
-	items := []fn.Any{"a", "b", "c"}
+	items := []Any{"a", "b", "c"}
 
-	iterator := fn.NewIterator(items)
+	iterator := NewIterator(items)
 
 	assert.Equal(t, iterator.Next(), "a")
 	assert.Equal(t, iterator.Next(), "b")
@@ -18,9 +17,9 @@ func TestIterator(t *testing.T) {
 }
 
 func TestIteratorWithDifferentInterfaceTypes(t *testing.T) {
-	items := []fn.Any{"a", 1, true}
+	items := []Any{"a", 1, true}
 
-	iterator := fn.NewIterator(items)
+	iterator := NewIterator(items)
 
 	assert.Equal(t, iterator.Next(), "a")
 	assert.Equal(t, iterator.Next(), 1)
@@ -29,12 +28,12 @@ func TestIteratorWithDifferentInterfaceTypes(t *testing.T) {
 }
 
 func TestIteratorDoesNotDestroyOriginalData(t *testing.T) {
-	items := []fn.Any{"a", "b", "c"}
+	items := []Any{"a", "b", "c"}
 
-	iterator := fn.NewIterator(items)
+	iterator := NewIterator(items)
 
 	iterator.Next()
 	iterator.Next()
 
-	assert.Equal(t, []fn.Any{"a", "b", "c"}, items)
+	assert.Equal(t, []Any{"a", "b", "c"}, items)
 }
